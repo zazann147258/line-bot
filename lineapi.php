@@ -19,7 +19,8 @@ foreach ($request_array['events'] as $event)
    {
 		$text = $event['message']['text'];
 
-		$reply_message = 'ระบบได้รับข้อความ '.$text.' ของคุณแล้ว';  
+		//$reply_message = 'ระบบได้รับข้อความ '.$text.' ของคุณแล้ว';  
+	   $reply_message = 'ระบบได้รับข้อความ 1.'.$text.' ของคุณแล้ว'
    }
    else
     $reply_message = 'ระบบได้รับ '.$event['message']['type'].' ของคุณแล้ว';
