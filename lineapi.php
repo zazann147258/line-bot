@@ -55,6 +55,8 @@ foreach ($request_json['events'] as $event)
 	
 	if(strlen($reply_message) > 0 ) {
 		$data = ['replyToken' => $reply_token, 'messages' => [['type' => 'text', 'text' => $reply_message]]];
+		      //['replyToken' => $event['replyToken'],'messages' => [['type' => 'text', 'text' => $message['text']]]]
+		
 		$post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
 		//$send_result = send_reply_message($API_URL, $POST_HEADER, $post_body);
 		$send_result = replyMessage($post_body);
@@ -63,8 +65,22 @@ foreach ($request_json['events'] as $event)
 }
 
 function replyMessage($post_body)
-{	
-   $response = file_get_contents('https://api.line.me/v2/bot/message/reply', false, $post_body);
+{
+	$header = array(
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $ACCESS_TOKEN,
+        );
+
+        $context = stream_context_create([
+            'http' => [
+                'ignore_errors' => true,
+                'method' => 'POST',
+                'header' => implode("\r\n", $header),
+                'content' => json_encode($message),
+            ],
+        ]);
+	
+	$response = file_get_contents('https://api.line.me/v2/bot/message/reply', false, $post_body);
 }
 
 ?>
