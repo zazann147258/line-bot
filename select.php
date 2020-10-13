@@ -12,9 +12,9 @@ $data = array();
 
 foreach($result_json as $values) {
   
-  echo $values['msg_id'] . " " . $values['msg_from'] . “<br>”;
+  //echo $values['msg_id'] . " " . $values['msg_from'] . “<br>”;
   
-  //var_dump($values); echo "<br>";
+  var_dump($values); echo "<br>";
   
   //foreach($values as $key => $value) {
   //  var_dump($value['msg_id']); 
