@@ -64,26 +64,4 @@ function send_reply_message($reply_token ,$reply_message)
  return $result;
 }
 
-
-
-function replyMessage($message)
-{
-	$header = array(
-            'Content-Type: application/json',
-            'Authorization: Bearer ' . $ACCESS_TOKEN,
-        );
-
-        $context = stream_context_create([
-            'http' => [
-                'ignore_errors' => true,
-                'method' => 'POST',
-                'header' => implode("\r\n", $header),
-                'content' => json_encode($message),
-            ],
-        ]);
-
-        $response = file_get_contents('https://api.line.me/v2/bot/message/reply', false, $context);
-
-}
-
 ?>
