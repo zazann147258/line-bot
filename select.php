@@ -8,13 +8,13 @@ $result_json = json_decode($result, true);
 
 //var_dump($result_json);
 
-$data = array();
+//$data = array();
 
 foreach($result_json as $values) {
   
-  //var_dump($values); echo "<br>";
+  var_dump($values); echo "<br>";
   
-  echo $values["msg_id"];
+  //echo $values["msg_id"];
     
   //foreach($values as $key => $value) {
   //  var_dump($value['msg_id']); 
