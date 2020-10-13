@@ -1,7 +1,6 @@
 <?php
 
 $ACCESS_TOKEN = 'PZ6qlbYABvcIg+sly4KFcjs8rAVOW1+EEEDBgcOn86a9MwA+MNHV8//FPERaqcVuWnKEs4U+6oe0jLA++fQlGKdK9/SCRKlZ0x4otRbscQZBRbe5VDkXvu32iZAA+dpXEwrb47Ncr9kuH1vSp+t3LwdB04t89/1O/w1cDnyilFU='; // Access Token ค่าที่เราสร้างขึ้น
-$POST_HEADER = array('Content-Type: application/json', 'Authorization: Bearer ' . $ACCESS_TOKEN);
 
 $request = file_get_contents('php://input');   // Get request content
 $request_array = json_decode($request, true);   // Decode JSON to Array
@@ -34,8 +33,11 @@ $request_array = json_decode($request, true);   // Decode JSON to Array
     'messages' => [['type' => 'text', 'text' => $reply_message]]
    ];
    $post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
+	  
+$POST_HEADER = array('Content-Type: application/json', 'Authorization: Bearer ' . $ACCESS_TOKEN);
 
    $send_result = send_reply_message($POST_HEADER, $post_body);
+	  
    echo "Result: ".$send_result."\r\n";
   }
  }
