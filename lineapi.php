@@ -47,7 +47,7 @@ if ( sizeof($request_array['events']) > 0 )
 
 function send_reply_message($url, $post_header, $post_body)
 {
- $ch = curl_init($url);
+ $ch = curl_init('https://api.line.me/v2/bot/message/reply');
  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
  curl_setopt($ch, CURLOPT_HTTPHEADER, $post_header);
