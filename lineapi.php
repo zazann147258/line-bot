@@ -17,14 +17,14 @@ $request_array = json_decode($request, true);   // Decode JSON to Array
    if( $event['message']['type'] == 'text' )
    {
 	   $text = $event['message']['text'];
-	   $reply_message = 'ระบบได้รับ '. $text.' ของคุณแล้ว';   
+	   $reply_message = 'ระบบได้รับ '. $text.' ของคุณแล้ว!';   
    }
    else
-    $reply_message = 'ระบบได้รับ '.$event['message']['type'].' ของคุณแล้ว';
+    $reply_message = 'ระบบได้รับ '.$event['message']['type'].' ของคุณแล้ว!';
   
   }
   else
-   $reply_message = 'ระบบได้รับ Event '.$event['type'].' ของคุณแล้ว';
+   $reply_message = 'ระบบได้รับ Event '.$event['type'].' ของคุณแล้ว!';
  
   if( strlen($reply_message) > 0 )
   {
@@ -35,12 +35,12 @@ $request_array = json_decode($request, true);   // Decode JSON to Array
    ];
    $post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
 
-   $send_result = send_reply_message($API_URL, $POST_HEADER, $post_body);
+   $send_result = send_reply_message($POST_HEADER, $post_body);
    echo "Result: ".$send_result."\r\n";
   }
  }
 
-function send_reply_message($url, $post_header, $post_body)
+function send_reply_message($post_header, $post_body)
 {
  $ch = curl_init('https://api.line.me/v2/bot/message/reply');
  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
