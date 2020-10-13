@@ -29,7 +29,9 @@ foreach ($request_json['events'] as $event)
 	
 	$post_body = json_encode($data);
 	
-	mySQL('http://bot.kantit.com/insert_json.php');
+	//mySQL('http://bot.kantit.com/insert_json.php');
+	
+	$result = file_get_contents('http://bot.kantit.com/insert_json.php'); 
 	
 	//if($callback){
 	
