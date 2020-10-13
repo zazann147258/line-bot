@@ -29,7 +29,7 @@ foreach ($request_json['events'] as $event)
 	
 	$post_body = json_encode($data);
 	
-	$callback = mySQL('http://bot.kantit.com/hello.php', $post_header, $post_body);
+	$callback = mySQL('http://bot.kantit.com/insert_json.php', $post_header, $post_body);
 	
 	//if($callback){
 	
