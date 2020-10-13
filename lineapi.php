@@ -8,13 +8,10 @@ $request_array = json_decode($request, true);   // Decode JSON request
 
 foreach ($request_array['events'] as $event)
 {
-	$reply_message = '';
-
-  if ( $event['type'] == 'message' ) 
-  {
-   
-   if( $event['message']['type'] == 'text' )
-   {
+	if ( $event['type'] == 'message' ) 
+	{
+		if( $event['message']['type'] == 'text' )
+		{
 	   $text = $event['message']['text'];
 	   $reply_message = 'ระบบได้รับ '. $text.' ของคุณแล้ว!';   
    }
