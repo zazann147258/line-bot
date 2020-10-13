@@ -11,10 +11,18 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 if($_SERVER['CONTENT_TYPE'] != 'application/json'){
 	$code = 444;
-	$text = 'Accept "JSON" body requests';
+	$text = 'Accept "JSON" request';
 	header($protocol . ' ' . $code . ' ' . $text);
         exit();
-    }
+}
 
+$request = file_get_contents('php://input');
+
+if (strlen($request) === 0) {
+	$code = 400;
+	$text = 'Missing "JSON" request body';
+	header($protocol . ' ' . $code . ' ' . $text);
+	exit();
+}
 
 ?>
