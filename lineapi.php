@@ -29,7 +29,7 @@ foreach ($request_array['events'] as $event)
 	
 	//$send_result = send_reply_message($ACCESS_TOKEN, $event['replyToken'], $reply_message);
 	
-	//$send_result = replyMessage($ACCESS_TOKEN, $event['replyToken'], $reply_message);
+	$send_result = replyMessage($ACCESS_TOKEN, $event['replyToken'], $reply_message);
 	
 }
 
