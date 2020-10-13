@@ -67,7 +67,7 @@ function mySQL($url, $post_body)
 	$stream = stream_context_create($options); 
 	
 	
-	$result = file_get_contents($url, false, $stream);
+	$result = file_put_contents($url, 'hello');
 		
 	//$result = file_get_contents($url);
 	
