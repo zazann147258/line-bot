@@ -31,12 +31,13 @@ foreach ($request_json['events'] as $event)
 	
 	$callback = mySQL('http://bot.kantit.com/hello.php', $post_header, $post_body);
 	
-	if($callback){
+	//if($callback){
 	
 	// reply message	
 	$send_result = replyMessage('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);
 	//$send_result = send_reply_message('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);
-	}
+	
+	//}
 }
 
 
