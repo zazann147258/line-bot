@@ -36,31 +36,31 @@ foreach ($request_json['events'] as $event)
 	//$reply_token = $event['replyToken'];
 	//$reply_message = '';
 	
-	switch ($event['type']) {
-		case 'message':
-			$message = $event['message'];
-			switch ($message['type']) {
-				case 'text':
+	//switch ($event['type']) {
+	//	case 'message':
+	//		$message = $event['message'];
+	//		switch ($message['type']) {
+	//			case 'text':
 					$reply_message = 'hello';
-			
-					break;
-				default: error_log('Unsupported message type: ' . $message['type']);
-					break;
-			}
-			break;
-		default:
-			error_log('Unsupported event type: ' . $event['type']);
-			break;
-	}
+	//		
+	//				break;
+	//			default: error_log('Unsupported message type: ' . $message['type']);
+	//				break;
+	//		}
+	//		break;
+	//	default:
+	//		error_log('Unsupported event type: ' . $event['type']);
+	//		break;
+	//}
 	
-	if(strlen($reply_message) > 0 ) {
-		$data = ['replyToken' => $reply_token, 'messages' => [['type' => 'text', 'text' => $reply_message]]];
-		      //['replyToken' => $event['replyToken'],'messages' => [['type' => 'text', 'text' => $message['text']]]]
+	//if(strlen($reply_message) > 0 ) {
+		$data = ['replyToken' => $event['replyToken'], 'messages' => [['type' => 'text', 'text' => $reply_message]]];
+		      //['replyToken' => $event['replyToken'], 'messages' => [['type' => 'text', 'text' => $message['text']]]]
 		
 		$post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
 		$send_result = send_reply_message($API_URL, $POST_HEADER, $post_body);
 		
-	}
+	//}
 	
 	//$send_result = replyMessage(['replyToken' => $event['replyToken'],'messages' => [['type' => 'text', 'text' => $message['text']]]);
 }
