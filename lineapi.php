@@ -7,11 +7,10 @@ $POST_HEADER = array('Content-Type: application/json', 'Authorization: Bearer ' 
 $request = file_get_contents('php://input');   // Get request content
 $request_array = json_decode($request, true);   // Decode JSON to Array
 
-
- foreach ($request_array['events'] as $event)
- {
-  $reply_message = '';
-  $reply_token = $event['replyToken'];
+foreach ($request_array['events'] as $event)
+{
+	$reply_message = '';
+	$reply_token = $event['replyToken'];
 
   if ( $event['type'] == 'message' ) 
   {
@@ -45,7 +44,7 @@ $request_array = json_decode($request, true);   // Decode JSON to Array
 
 function send_reply_message($url, $post_header, $post_body)
 {
- $ch = curl_init($url);
+ $ch = curl_init('https://api.line.me/v2/bot/message/reply');
  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
  curl_setopt($ch, CURLOPT_HTTPHEADER, $post_header);
