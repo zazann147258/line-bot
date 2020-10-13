@@ -34,7 +34,7 @@ foreach ($request_array['events'] as $event)
    ];
    $post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
 	  
-   $send_result = send_reply_message($ACCESS_TOKEN, $reply_message);
+   $send_result = send_reply_message($ACCESS_TOKEN, $post_body);
 	  
    echo "Result: ".$send_result."\r\n";
   }
