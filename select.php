@@ -1,6 +1,6 @@
 <?php
 
-$url = 'http://bot.kantit.com/select.php';
+$url = 'https://bot.kantit.com/select.php';
 //$url = 'https://covid19.th-stat.com/api/open/today';
 
 $ch = curl_init($url);
