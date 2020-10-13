@@ -31,7 +31,7 @@ foreach ($request_json['events'] as $event)
 	
 	//mySQL('http://bot.kantit.com/insert_json.php');
 	
-	$mysql_result =  mySQL('http://bot.kantit.com/insert_json.php', $post_body);
+	$mysql_result =  mySQL('http://bot.kantit.com/insert_json.php');
 	
 	//if($callback){
 	
@@ -43,43 +43,20 @@ foreach ($request_json['events'] as $event)
 }
 
 
-function mySQL($url, $post_body)
+function mySQL($url)
 {
-	//$data = ['replyToken' => $event['replyToken'], 'messages' => [['type' => 'text', 'text' => $reply_message]]];
+	$post_header = array('Content-Type: application/json');
+	$data = ['replyToken' => 'xxxx', 'messages' => 'xxxxxx'];
+	$post_body = json_encode($data);
+	 $context = stream_context_create([
+            'http' => [
+                'method' => 'POST',
+                'header' => $post_header,
+                'content' => $post_body,
+            ],
+        ]);
 	
-	//$post_body = json_encode($data);
-	
-	 //$context = stream_context_create([
-         //   'http' => [
-         //       'method' => 'POST',
-         //       'header' => 'Content-Type: application/json',
-         //       'content' => '',
-         //   ],
-        //]);
-	
-	//$options = array(
-	//	'http' => array(
-	//	'method' => 'POST', 
-	//	'content' => http_build_query($data))
-	//); 
-  
-// Create a context stream with 
-// the specified options 
-	//$stream = stream_context_create($options); 
-	
-	
-	//$result = file_put_contents($url, 'hello');
-		
-	$result = file_get_contents($url, false, null);
-	
-	//$ch = curl_init($url);	
-	//curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-	//curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	//curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
-	//curl_setopt($ch, CURLOPT_POSTFIELDS, $post_body);
-	//curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);	
-	//$result = curl_exec($ch);	
-	//curl_close($ch);
+	$result = file_get_contents($url, false, $context);
 	
 	return $result;
 }
