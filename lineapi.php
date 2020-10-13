@@ -29,14 +29,16 @@ $request_json = json_decode($request, true);   // Decode JSON request
 
 foreach ($request_json['events'] as $event)
 {
-	//$reply_message = '';
-	//$reply_token = $event['replyToken'];
+	$reply_token = $event['replyToken'];
+	$reply_message = '';
 	
 	switch ($event['type']) {
 		case 'message':
 			$message = $event['message'];
 			switch ($message['type']) {
 				case 'text':
+					$reply_message = 'hello';
+			
 					break;
 				default: error_log('Unsupported message type: ' . $message['type']);
 					break;
@@ -46,6 +48,13 @@ foreach ($request_json['events'] as $event)
 			error_log('Unsupported event type: ' . $event['type']);
 			break;
 	}
+	
+	$send_result = replyMessage($API_URL, $POST_HEADER, $post_body);
+}
+
+function replyMessage($url, $post_header, $post_body)
+{	
+   echo "Result:...\r\n";
 }
 
 ?>
