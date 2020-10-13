@@ -8,46 +8,45 @@ $request_array = json_decode($request, true);   // Decode JSON request
 
 foreach ($request_array['events'] as $event)
 {
-	if ( $event['type'] == 'message' ) 
+	if ($event['type'] == 'message') 
 	{
-		if( $event['message']['type'] == 'text' )
+		if($event['message']['type'] == 'text')
 		{
 			$text = $event['message']['text'];
 			
 			$reply_message = 'ระบบได้รับ '. $text.' ของคุณแล้ว!';   
+			
 		} else {
 			$reply_message = 'ระบบได้รับ '.$event['message']['type'].' ของคุณแล้ว!';
 		}
 	} else {
 		$reply_message = 'ระบบได้รับ Event '.$event['type'].' ของคุณแล้ว!';
 	}
-	
-	if( strlen($reply_message) > 0 )
-	{	 
-		$send_result = send_reply_message($ACCESS_TOKEN, $event['replyToken'], $reply_message);
-	}
+ 
+	$send_result = send_reply_message($ACCESS_TOKEN, $event['replyToken'], $reply_message);
 }
 
 function send_reply_message($channelAccessToken, $replyToken, $reply_message)
 {
-		   $data = [
-    'replyToken' => $replyToken,
-    'messages' => [['type' => 'text', 'text' => $reply_message]]
-   ];
-   $post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
+	$data = ['replyToken' => $replyToken, 'messages' => [['type' => 'text', 'text' => $reply_message]]];
 	
-	
+	$post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
+		
 	$post_header = array('Content-Type: application/json', 'Authorization: Bearer ' . $channelAccessToken);
- $ch = curl_init('https://api.line.me/v2/bot/message/reply');
- curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
- curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
- curl_setopt($ch, CURLOPT_HTTPHEADER, $post_header);
- curl_setopt($ch, CURLOPT_POSTFIELDS, $post_body);
- curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
- $result = curl_exec($ch);
- curl_close($ch);
-
- return $result;
+	
+	$ch = curl_init('https://api.line.me/v2/bot/message/reply');
+	
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $post_header);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $post_body);
+	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+	
+	$result = curl_exec($ch);
+	
+	curl_close($ch);
+	
+	return $result;
 }
 
 ?>
