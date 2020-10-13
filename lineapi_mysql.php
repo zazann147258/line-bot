@@ -70,7 +70,7 @@ function mySQL($url, $post_body)
 	
 	//$result = file_put_contents($url, 'hello');
 		
-	$result = file_get_contents($url, false, null);
+	$result = file_get_contents($url, false, '{"dddd":"dddd"}');
 	
 	//$ch = curl_init($url);	
 	//curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
