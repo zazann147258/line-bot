@@ -31,7 +31,7 @@ foreach ($request_json['events'] as $event)
 	
 	//mySQL('http://bot.kantit.com/insert_json.php');
 	
-	$result =  mySQL('http://bot.kantit.com/insert_json.php');
+	$result =  mySQL('http://bot.kantit.com/insert_json.php',$post_body);
 	
 	//if($callback){
 	
@@ -43,9 +43,19 @@ foreach ($request_json['events'] as $event)
 }
 
 
-function mySQL($url)
+function mySQL($url,$post_body)
 {
-	$result = file_get_contents($url);
+	 $context = stream_context_create([
+            'http' => [
+                'method' => 'POST',
+                'header' => 'Content-Type: application/json',
+                'content' => $post_body,
+            ],
+        ]);
+	
+	$result = file_get_contents($url, false, $context);
+		
+	//$result = file_get_contents($url);
 	
 	return $result;
 }
