@@ -1,6 +1,6 @@
 <?php
 
-$url = 'http://bot.kantit.com/select.php';
+$url = 'https://bot.kantit.com/select.php';
 $ch = curl_init($url);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
