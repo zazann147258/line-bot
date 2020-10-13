@@ -12,13 +12,15 @@ $data = array();
 
 foreach($result_json as $values) {
   
+  echo $item->msg_id . " " . $item->msg_from . “<br>”;
+  
   //var_dump($values); echo "<br>";
   
-  foreach($values as $key => $value) {
-    var_dump($value['msg_id']); 
+  //foreach($values as $key => $value) {
+  //  var_dump($value['msg_id']); 
     //echo $key . " => " . $value . "<br>";
     //array_push($data, array("fullname"=>$value['msg_from']));
-  }
+  //}
   //echo "<br>";  
 }
 
