@@ -45,9 +45,9 @@ foreach ($request_json['events'] as $event)
 
 function mySQL($url, $post_body)
 {
-	$data = ['replyToken' => $event['replyToken'], 'messages' => [['type' => 'text', 'text' => $reply_message]]];
+	//$data = ['replyToken' => $event['replyToken'], 'messages' => [['type' => 'text', 'text' => $reply_message]]];
 	
-	$post_body = json_encode($data);
+	//$post_body = json_encode($data);
 	
 	 //$context = stream_context_create([
          //   'http' => [
@@ -56,8 +56,18 @@ function mySQL($url, $post_body)
          //       'content' => '',
          //   ],
         //]);
+	$options = array(
+		'http' => array(
+		'method' => 'POST', 
+		'content' => http_build_query($data))
+	); 
+  
+// Create a context stream with 
+// the specified options 
+	$stream = stream_context_create($options); 
 	
-	$result = file_get_contents($url, false, null);
+	
+	$result = file_get_contents($url, false, $stream);
 		
 	//$result = file_get_contents($url);
 	
