@@ -56,29 +56,30 @@ function mySQL($url, $post_body)
          //       'content' => '',
          //   ],
         //]);
-	$options = array(
-		'http' => array(
-		'method' => 'POST', 
-		'content' => http_build_query($data))
-	); 
+	
+	//$options = array(
+	//	'http' => array(
+	//	'method' => 'POST', 
+	//	'content' => http_build_query($data))
+	//); 
   
 // Create a context stream with 
 // the specified options 
-	$stream = stream_context_create($options); 
+	//$stream = stream_context_create($options); 
 	
 	
-	$result = file_put_contents($url, 'hello');
+	//$result = file_put_contents($url, 'hello');
 		
 	//$result = file_get_contents($url);
 	
-	//$ch = curl_init($url);	
-	//curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+	$ch = curl_init($url);	
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 	//curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	//curl_setopt($ch, CURLOPT_HTTPHEADER, 'Content-Type: application/json');
+	curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
 	//curl_setopt($ch, CURLOPT_POSTFIELDS, $post_body);
 	//curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);	
-	//$result = curl_exec($ch);	
-	//curl_close($ch);
+	$result = curl_exec($ch);	
+	curl_close($ch);
 	
 	return $result;
 }
