@@ -58,7 +58,7 @@ foreach ($request_json['events'] as $event)
 		      //['replyToken' => $event['replyToken'], 'messages' => [['type' => 'text', 'text' => $message['text']]]]
 		
 		$post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
-		$send_result = send_reply_message($API_URL, $POST_HEADER, $post_body);
+		$send_result = send_reply_message($LINE_API, $POST_HEADER, $post_body);
 		
 	//}
 	
