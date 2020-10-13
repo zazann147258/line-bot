@@ -27,21 +27,21 @@ foreach ($request_array['events'] as $event)
  
   if( strlen($reply_message) > 0 )
   {
-   //$reply_message = iconv("tis-620","utf-8",$reply_message);
-   $data = [
-    'replyToken' => $event['replyToken'],
-    'messages' => [['type' => 'text', 'text' => $reply_message]]
-   ];
-   $post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
 	  
-   $send_result = send_reply_message($ACCESS_TOKEN, $post_body);
+   $send_result = send_reply_message($ACCESS_TOKEN, $reply_message);
 	  
    echo "Result: ".$send_result."\r\n";
   }
  }
 
-function send_reply_message($channelAccessToken, $post_body)
+function send_reply_message($channelAccessToken, $reply_message)
 {
+	 $data = [
+    'replyToken' => $event['replyToken'],
+    'messages' => [['type' => 'text', 'text' => $reply_message]]
+   ];
+   $post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
+	
 	$post_header = array('Content-Type: application/json', 'Authorization: Bearer ' . $channelAccessToken);
  $ch = curl_init('https://api.line.me/v2/bot/message/reply');
  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
