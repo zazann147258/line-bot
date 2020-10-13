@@ -57,7 +57,7 @@ function replyMessage($url, $post_header, $post_body)
 
 
 
-function send_reply_message($url, $post_header, $post_body, $post_header, $post_body)
+function send_reply_message($url, $post_header, $post_body)
 {
 	$ch = curl_init($url);	
 	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
