@@ -29,8 +29,8 @@ foreach ($request_array['events'] as $event)
 	
 	$post_body = json_encode($data);
 	
-	//$send_result = replyMessage('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);
-	$send_result = send_reply_message('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);	
+	$send_result = replyMessage('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);
+	//$send_result = send_reply_message('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);	
 }
 
 
