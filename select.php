@@ -8,6 +8,6 @@ $result = curl_exec($ch);
 curl_close($ch);   		   
 //$obj = json_decode($result);		   
 
-echo $result;
+echo 'ok!';
 
 ?>
