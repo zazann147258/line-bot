@@ -29,7 +29,7 @@ foreach ($request_json['events'] as $event)
 	
 	$post_body = json_encode($data);
 	
-	$result = mySQL('http://bot.kantit.com/insert_json.php');
+	mySQL('http://bot.kantit.com/insert_json.php');
 	
 	//if($callback){
 	
@@ -41,7 +41,7 @@ foreach ($request_json['events'] as $event)
 }
 
 
-function mySQL($url, $post_header, $post_body)
+function mySQL($url)
 {
         		   $ch = curl_init($url);
 		   curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
