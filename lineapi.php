@@ -23,9 +23,13 @@ foreach ($request_array['events'] as $event)
 		$reply_message = 'ระบบได้รับ Event '.$event['type'].' ของคุณแล้ว!';
 	}
  
+	
+	
+	
+	
 	//$send_result = send_reply_message($ACCESS_TOKEN, $event['replyToken'], $reply_message);
 	
-	$send_result = replyMessage($ACCESS_TOKEN, $event['replyToken'], $reply_message);
+	//$send_result = replyMessage($ACCESS_TOKEN, $event['replyToken'], $reply_message);
 	
 }
 
@@ -37,7 +41,7 @@ function replyMessage($channelAccessToken, $replyToken, $reply_message)
 
         $context = stream_context_create([
             'http' => [
-                'ignore_errors' => true,
+                //'ignore_errors' => true,
                 'method' => 'POST',
                 'header' => $post_header,
                 'content' => json_encode($data),
