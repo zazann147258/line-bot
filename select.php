@@ -8,14 +8,18 @@ $result_json = json_decode($result, true);
 
 //var_dump($result_json);
 
+$data = array();
+
 foreach($result_json as $key => $values) {
   //var_dump($values); echo "<br>";
   foreach($values as $key => $value) {
     //var_dump($value); 
-    echo $key . " => " . $value . "<br>";
+    //echo $key . " => " . $value . "<br>";
+    array_push($data, array("fullname"=>$value['msg_from']));
   }
-  //echo "<br>";
-  
+  //echo "<br>";  
 }
+
+echo $data;
 
 ?>
