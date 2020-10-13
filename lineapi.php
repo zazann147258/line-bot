@@ -23,7 +23,7 @@ foreach ($request_array['events'] as $event)
 		$reply_message = 'ระบบได้รับ Event '.$event['type'].' ของคุณแล้ว!';
 	}
  
-	$send_result = send_reply_message($ACCESS_TOKEN, $event['replyToken'], $reply_message);
+	//$send_result = send_reply_message($ACCESS_TOKEN, $event['replyToken'], $reply_message);
 	
 	$send_result = replyMessage($ACCESS_TOKEN, [
 		'replyToken' => $event['replyToken'],
@@ -60,12 +60,11 @@ function send_reply_message($channelAccessToken, $replyToken, $reply_message)
 	return $result;
 }
 
-
 function replyMessage($channelAccessToken, $message)
-    {
-        $header = array(
+{
+	$header = array(
             'Content-Type: application/json',
-            'Authorization: Bearer ' . $channelAccessToken,
+            'Authorization: Bearer ' . $channelAccessToken
         );
 
         $context = stream_context_create([
@@ -76,10 +75,11 @@ function replyMessage($channelAccessToken, $message)
                 'content' => json_encode($message),
             ],
         ]);
-
-        $response = file_get_contents('https://api.line.me/v2/bot/message/reply', false, $context);
 	
-	return $response;
+
+$result = file_get_contents('https://api.line.me/v2/bot/message/reply', false, $context);
+
+	return $result;
     }
 
 
