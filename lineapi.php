@@ -9,7 +9,6 @@ $request_array = json_decode($request, true);   // Decode JSON request
 foreach ($request_array['events'] as $event)
 {
 	$reply_message = '';
-	//$reply_token = $event['replyToken'];
 
   if ( $event['type'] == 'message' ) 
   {
