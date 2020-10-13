@@ -23,13 +23,38 @@ foreach ($request_json['events'] as $event)
 		$reply_message = 'ระบบได้รับ Event '.$event['type'].' ของคุณแล้ว!';
 	}
 	
-	// reply message
 	$post_header = array('Content-Type: application/json', 'Authorization: Bearer ' . $channelAccessToken);
+	
 	$data = ['replyToken' => $event['replyToken'], 'messages' => [['type' => 'text', 'text' => $reply_message]]];
+	
 	$post_body = json_encode($data);
+	
+	$callback = mySQL('http://bot.kantit.com/hello.php', $post_header, $post_body);
+	
+	if($callback){
+	
+	// reply message	
 	$send_result = replyMessage('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);
 	//$send_result = send_reply_message('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);
+	}
 }
+
+
+function mySQL($url, $post_header, $post_body)
+{
+        $context = stream_context_create([
+            'http' => [
+                'method' => 'POST',
+                'header' => $post_header,
+                'content' => $post_body,
+            ],
+        ]);
+	
+	$result = file_get_contents($url, false, $context);
+
+	return $result;
+}
+
 
 function replyMessage($url, $post_header, $post_body)
 {
