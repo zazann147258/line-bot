@@ -11,10 +11,11 @@ $result_json = json_decode($result, true);
 foreach($result_json as $key => $values) {
   //var_dump($values); echo "<br>";
   foreach($values as $key => $value) {
-      var_dump($value); 
+    //var_dump($value); 
+    echo $key . " => " . $value . "<br>";
   }
-  echo "<br>";
-  //echo $key . " => " . $value . "<br>";
+  //echo "<br>";
+  
 }
 
 ?>
