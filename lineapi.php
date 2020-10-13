@@ -23,7 +23,7 @@ foreach ($request_array['events'] as $event)
 		$reply_message = 'ระบบได้รับ Event '.$event['type'].' ของคุณแล้ว!';
 	}
  
-	//$send_result = send_reply_message($ACCESS_TOKEN, $event['replyToken'], $reply_message);
+	$send_result = send_reply_message($ACCESS_TOKEN, $event['replyToken'], $reply_message);
 	
 	$send_result = replyMessage($ACCESS_TOKEN, [
 		'replyToken' => $event['replyToken'],
