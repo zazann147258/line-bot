@@ -1,6 +1,5 @@
 <?php
 
-$API_URL = 'https://api.line.me/v2/bot/message/reply';
 $ACCESS_TOKEN = 'PZ6qlbYABvcIg+sly4KFcjs8rAVOW1+EEEDBgcOn86a9MwA+MNHV8//FPERaqcVuWnKEs4U+6oe0jLA++fQlGKdK9/SCRKlZ0x4otRbscQZBRbe5VDkXvu32iZAA+dpXEwrb47Ncr9kuH1vSp+t3LwdB04t89/1O/w1cDnyilFU='; // Access Token ค่าที่เราสร้างขึ้น
 $POST_HEADER = array('Content-Type: application/json', 'Authorization: Bearer ' . $ACCESS_TOKEN);
 
@@ -21,14 +20,14 @@ if ( sizeof($request_array['events']) > 0 )
    if( $event['message']['type'] == 'text' )
    {
 	   $text = $event['message']['text'];
-	   $reply_message = '('.$text.') ได้รับข้อความเรียบร้อย!!';   
+	   $reply_message = 'ระบบได้รับ '. $text.' ของคุณแล้ว';   
    }
    else
-    $reply_message = 'ระบบได้รับ '.ucfirst($event['message']['type']).' ของคุณแล้ว';
+    $reply_message = 'ระบบได้รับ '.$event['message']['type'].' ของคุณแล้ว';
   
   }
   else
-   $reply_message = 'ระบบได้รับ Event '.ucfirst($event['type']).' ของคุณแล้ว';
+   $reply_message = 'ระบบได้รับ Event '.$event['type'].' ของคุณแล้ว';
  
   if( strlen($reply_message) > 0 )
   {
