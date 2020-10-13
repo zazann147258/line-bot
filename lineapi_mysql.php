@@ -56,7 +56,9 @@ function mySQL($url)
             ],
         ]);
 	
-	$result = file_get_contents($url, false, $context);
+	//$result = file_get_contents($url, false, $context);
+	
+	$result = file_get_contents($url, false, null);
 	
 	return $result;
 }
