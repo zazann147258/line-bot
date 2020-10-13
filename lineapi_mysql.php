@@ -70,16 +70,16 @@ function mySQL($url, $post_body)
 	
 	//$result = file_put_contents($url, 'hello');
 		
-	//$result = file_get_contents($url);
+	$result = file_get_contents($url, null, null);
 	
-	$ch = curl_init($url);	
-	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+	//$ch = curl_init($url);	
+	//curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 	//curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
+	//curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
 	//curl_setopt($ch, CURLOPT_POSTFIELDS, $post_body);
 	//curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);	
-	$result = curl_exec($ch);	
-	curl_close($ch);
+	//$result = curl_exec($ch);	
+	//curl_close($ch);
 	
 	return $result;
 }
