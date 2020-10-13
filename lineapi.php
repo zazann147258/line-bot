@@ -23,17 +23,16 @@ foreach ($request_array['events'] as $event)
 		$reply_message = 'ระบบได้รับ Event '.$event['type'].' ของคุณแล้ว!';
 	}
 
+	$post_header = array('Content-Type: application/json', 'Authorization: Bearer ' . $channelAccessToken);
 	
 	$data = ['replyToken' => $event['replyToken'], 'messages' => [['type' => 'text', 'text' => $reply_message]]];
 	
-	$send_result = replyMessage($channelAccessToken, $data);
-	//$send_result = send_reply_message($ACCESS_TOKEN, $event['replyToken'], $data);	
+	$send_result = replyMessage($post_header, $data);
+	//$send_result = send_reply_message($post_header, $data);	
 }
 
-function replyMessage($channelAccessToken, $data)
+function replyMessage($post_header, $data)
 {
-	$post_header = array('Content-Type: application/json', 'Authorization: Bearer ' . $channelAccessToken);
-	
         $context = stream_context_create([
             'http' => [
                 //'ignore_errors' => true,
