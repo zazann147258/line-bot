@@ -45,17 +45,32 @@ foreach ($request_json['events'] as $event)
 
 function mySQL($url, $post_body)
 {
-	 $context = stream_context_create([
-            'http' => [
-                'method' => 'POST',
-                'header' => 'Content-Type: application/json',
-                'content' => '',
-            ],
-        ]);
+	$data = ['replyToken' => $event['replyToken'], 'messages' => [['type' => 'text', 'text' => $reply_message]]];
 	
-	$result = file_get_contents($url, false, $context);
+	$post_body = json_encode($data);
+	
+	 //$context = stream_context_create([
+         //   'http' => [
+         //       'method' => 'POST',
+         //       'header' => 'Content-Type: application/json',
+         //       'content' => '',
+         //   ],
+        //]);
+	
+	//$result = file_get_contents($url, false, $context);
 		
 	//$result = file_get_contents($url);
+	
+	$ch = curl_init($url);	
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_HTTPHEADER, 'Content-Type: application/json');
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $post_body);
+	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+	
+	$result = curl_exec($ch);
+	
+	curl_close($ch);
 	
 	return $result;
 }
