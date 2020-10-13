@@ -44,7 +44,7 @@ foreach ($request_array['events'] as $event)
 
 function send_reply_message($post_body)
 {	
- $ch = curl_init('https://api.line.me/v2/bot/message/reply');
+ $ch = curl_init('https://api.line.me/v2/bot/message/reply/');
  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
  curl_setopt($ch, CURLOPT_HTTPHEADER, $post_header);
