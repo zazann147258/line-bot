@@ -25,16 +25,28 @@ foreach ($request_array['events'] as $event)
  
 	//$send_result = send_reply_message($ACCESS_TOKEN, $event['replyToken'], $reply_message);
 	
-	$send_result = replyMessage($ACCESS_TOKEN, [
-		'replyToken' => $event['replyToken'],
-		'messages' => [
-			[
-				'type' => 'text',
-                                'text' => $message['text']
-			]
-		]
-	]);
+	$send_result = replyMessage($ACCESS_TOKEN, $event['replyToken'], $reply_message);
 	
+}
+
+function replyMessage($channelAccessToken, $replyToken, $reply_message)
+{
+	$post_header = array('Content-Type: application/json', 'Authorization: Bearer ' . $channelAccessToken);
+	
+	$data = ['replyToken' => $replyToken, 'messages' => [['type' => 'text', 'text' => $reply_message]]];
+
+        $context = stream_context_create([
+            'http' => [
+                'ignore_errors' => true,
+                'method' => 'POST',
+                'header' => $post_header,
+                'content' => json_encode($data),
+            ],
+        ]);
+	
+	$result = file_get_contents('https://api.line.me/v2/bot/message/reply', false, $context);
+
+	return $result;
 }
 
 function send_reply_message($channelAccessToken, $replyToken, $reply_message)
@@ -59,28 +71,5 @@ function send_reply_message($channelAccessToken, $replyToken, $reply_message)
 	
 	return $result;
 }
-
-function replyMessage($channelAccessToken, $message)
-{
-	$header = array(
-            'Content-Type: application/json',
-            'Authorization: Bearer ' . $channelAccessToken
-        );
-
-        $context = stream_context_create([
-            'http' => [
-                'ignore_errors' => true,
-                'method' => 'POST',
-                'header' => implode("\r\n", $header),
-                'content' => json_encode($message),
-            ],
-        ]);
-	
-
-$result = file_get_contents('https://api.line.me/v2/bot/message/reply', false, $context);
-
-	return $result;
-    }
-
 
 ?>
