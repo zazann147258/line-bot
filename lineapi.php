@@ -1,5 +1,5 @@
 <?php
-$API_URL = 'https://api.line.me/v2/bot/message/reply';
+
 $ACCESS_TOKEN = 'PZ6qlbYABvcIg+sly4KFcjs8rAVOW1+EEEDBgcOn86a9MwA+MNHV8//FPERaqcVuWnKEs4U+6oe0jLA++fQlGKdK9/SCRKlZ0x4otRbscQZBRbe5VDkXvu32iZAA+dpXEwrb47Ncr9kuH1vSp+t3LwdB04t89/1O/w1cDnyilFU='; // Access Token ค่าที่เราสร้างขึ้น
 
 $request = file_get_contents('php://input');   // Get request content
@@ -52,7 +52,7 @@ function send_reply_message($reply_token ,$reply_message)
 	
 	$post_header = array('Content-Type: application/json', 'Authorization: Bearer ' . $ACCESS_TOKEN);
 
- $ch = curl_init($url);
+ $ch = curl_init('https://api.line.me/v2/bot/message/reply');
  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
  curl_setopt($ch, CURLOPT_HTTPHEADER, $post_header);
