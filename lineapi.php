@@ -26,22 +26,23 @@ foreach ($request_array['events'] as $event)
    $reply_message = 'ระบบได้รับ Event '.$event['type'].' ของคุณแล้ว!';
  
   if( strlen($reply_message) > 0 )
-  {
+  {	  
+  
+   $send_result = send_reply_message($ACCESS_TOKEN, $event['replyToken'], $reply_message);
 	  
-	   $data = [
-    'replyToken' => $event['replyToken'],
+   echo "Result: ".$send_result."\r\n";
+	  
+  }
+	
+ }
+
+function send_reply_message($channelAccessToken, $replyToken, $reply_message)
+{
+		   $data = [
+    'replyToken' => $replyToken,
     'messages' => [['type' => 'text', 'text' => $reply_message]]
    ];
    $post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
-	  
-   $send_result = send_reply_message($ACCESS_TOKEN, $post_body);
-	  
-   echo "Result: ".$send_result."\r\n";
-  }
- }
-
-function send_reply_message($channelAccessToken, $post_body)
-{
 	
 	
 	$post_header = array('Content-Type: application/json', 'Authorization: Bearer ' . $channelAccessToken);
