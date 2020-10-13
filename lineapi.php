@@ -43,8 +43,17 @@ if ( sizeof($request_array['events']) > 0 )
    ];
    $post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
 
-   $send_result = send_reply_message($API_URL, $POST_HEADER, $post_body);
-   echo "Result: ".$send_result."\r\n";
+   //$send_result = send_reply_message($API_URL, $POST_HEADER, $post_body);
+	  replyMessage([
+                        'replyToken' => $event['replyToken'],
+                        'messages' => [
+                            [
+                                'type' => 'text',
+                                'text' => $message['text']
+                            ]
+                        ]
+                    ]);
+
   }
  }
 }
@@ -61,6 +70,28 @@ function send_reply_message($url, $post_header, $post_body)
  curl_close($ch);
 
  return $result;
+}
+
+
+
+function replyMessage($message)
+{
+	$header = array(
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $ACCESS_TOKEN,
+        );
+
+        $context = stream_context_create([
+            'http' => [
+                'ignore_errors' => true,
+                'method' => 'POST',
+                'header' => implode("\r\n", $header),
+                'content' => json_encode($message),
+            ],
+        ]);
+
+        $response = file_get_contents('https://api.line.me/v2/bot/message/reply', false, $context);
+
 }
 
 ?>
