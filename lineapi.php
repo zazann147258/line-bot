@@ -47,7 +47,7 @@ function send_reply_message($post_body)
 	$post_header = array('Content-Type: application/json', 'Authorization: Bearer ' . $ACCESS_TOKEN);
 	
 	
- $ch = curl_init();
+ $ch = curl_init($url);
  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
  curl_setopt($ch, CURLOPT_HTTPHEADER, $post_header);
