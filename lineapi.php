@@ -12,26 +12,21 @@ foreach ($request_array['events'] as $event)
 	{
 		if( $event['message']['type'] == 'text' )
 		{
-	   $text = $event['message']['text'];
-	   $reply_message = 'ระบบได้รับ '. $text.' ของคุณแล้ว!';   
-   }
-   else
-    $reply_message = 'ระบบได้รับ '.$event['message']['type'].' ของคุณแล้ว!';
-  
-  }
-  else
-   $reply_message = 'ระบบได้รับ Event '.$event['type'].' ของคุณแล้ว!';
- 
-  if( strlen($reply_message) > 0 )
-  {	  
-  
-   $send_result = send_reply_message($ACCESS_TOKEN, $event['replyToken'], $reply_message);
-	  
-   echo "Result: ".$send_result."\r\n";
-	  
-  }
+			$text = $event['message']['text'];
+			
+			$reply_message = 'ระบบได้รับ '. $text.' ของคุณแล้ว!';   
+		} else {
+			$reply_message = 'ระบบได้รับ '.$event['message']['type'].' ของคุณแล้ว!';
+		}
+	} else {
+		$reply_message = 'ระบบได้รับ Event '.$event['type'].' ของคุณแล้ว!';
+	}
 	
- }
+	if( strlen($reply_message) > 0 )
+	{	 
+		$send_result = send_reply_message($ACCESS_TOKEN, $event['replyToken'], $reply_message);
+	}
+}
 
 function send_reply_message($channelAccessToken, $replyToken, $reply_message)
 {
