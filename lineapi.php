@@ -33,8 +33,8 @@ $request_json = json_decode($request, true);   // Decode JSON request
 
 foreach ($request_json['events'] as $event)
 {
-	$reply_token = $event['replyToken'];
-	$reply_message = '';
+	//$reply_token = $event['replyToken'];
+	//$reply_message = '';
 	
 	switch ($event['type']) {
 		case 'message':
@@ -59,8 +59,10 @@ foreach ($request_json['events'] as $event)
 		
 		//$post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
 		//$send_result = send_reply_message($API_URL, $POST_HEADER, $post_body);
-		$send_result = replyMessage(['replyToken' => $event['replyToken'],'messages' => [['type' => 'text', 'text' => $message['text']]]);
+		
 	}
+	
+	$send_result = replyMessage(['replyToken' => $event['replyToken'],'messages' => [['type' => 'text', 'text' => $message['text']]]);
 	
 }
 
