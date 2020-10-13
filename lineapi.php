@@ -16,21 +16,21 @@ foreach ($request_array['events'] as $event)
 			
 			$reply_message = 'ระบบได้รับ '. $text.' ของคุณแล้ว!';   
 			
+			$post_header = array('Content-Type: application/json', 'Authorization: Bearer ' . $channelAccessToken);
+			
+			$data = ['replyToken' => $event['replyToken'], 'messages' => [['type' => 'text', 'text' => $reply_message]]];
+			
+			$post_body = json_encode($data);
+			
+			$send_result = replyMessage('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);
+			//$send_result = send_reply_message('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);
+			
 		} else {
 			$reply_message = 'ระบบได้รับ '.$event['message']['type'].' ของคุณแล้ว!';
 		}
 	} else {
 		$reply_message = 'ระบบได้รับ Event '.$event['type'].' ของคุณแล้ว!';
 	}
-
-	$post_header = array('Content-Type: application/json', 'Authorization: Bearer ' . $channelAccessToken);
-	
-	$data = ['replyToken' => $event['replyToken'], 'messages' => [['type' => 'text', 'text' => $reply_message]]];
-	
-	$post_body = json_encode($data);
-	
-	$send_result = replyMessage('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);
-	//$send_result = send_reply_message('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);	
 }
 
 
