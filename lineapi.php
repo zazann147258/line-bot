@@ -27,8 +27,8 @@ foreach ($request_array['events'] as $event)
 	
 	$data = ['replyToken' => $event['replyToken'], 'messages' => [['type' => 'text', 'text' => $reply_message]]];
 	
-	$send_result = replyMessage($post_header, $data);
-	//$send_result = send_reply_message($post_header, $data);	
+	//$send_result = replyMessage($post_header, $data);
+	$send_result = send_reply_message($post_header, $data);	
 }
 
 function replyMessage($post_header, $data)
@@ -47,12 +47,8 @@ function replyMessage($post_header, $data)
 	return $result;
 }
 
-function send_reply_message($channelAccessToken, $replyToken, $reply_message)
+function send_reply_message($post_header, $data)
 {
-	$post_header = array('Content-Type: application/json', 'Authorization: Bearer ' . $channelAccessToken);
-	
-	$data = ['replyToken' => $replyToken, 'messages' => [['type' => 'text', 'text' => $reply_message]]];
-	
 	$post_body = json_encode($data);
 	
 	$ch = curl_init('https://api.line.me/v2/bot/message/reply');
