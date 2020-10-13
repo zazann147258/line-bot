@@ -20,7 +20,7 @@ foreach ($request_array['events'] as $event)
 		$text = $event['message']['text'];
 
 		//$reply_message = 'ระบบได้รับข้อความ '.$text.' ของคุณแล้ว';  
-	   $reply_message = 'ระบบได้รับข้อความ 1.'.$text.' ของคุณแล้ว';
+	   $reply_message = 'ระบบได้รับข้อความ 2.'.$text.' ของคุณแล้ว';
    }
    else
     $reply_message = 'ระบบได้รับ '.$event['message']['type'].' ของคุณแล้ว';
@@ -45,7 +45,7 @@ foreach ($request_array['events'] as $event)
 
 function send_reply_message($url, $post_header, $post_body)
 {
- $ch = curl_init($url);
+ $ch = curl_init('https://api.line.me/v2/bot/message/reply');
  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
  curl_setopt($ch, CURLOPT_HTTPHEADER, $post_header);
