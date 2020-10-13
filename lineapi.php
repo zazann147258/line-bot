@@ -31,6 +31,8 @@ if (strlen($request) === 0) {
 
 $request_json = json_decode($request, true);   // Decode JSON request
 
+echo '$request_json: ' . $request_json;
+
 //foreach ($request_json['events'] as $event)
 //{
 	//$reply_token = $event['replyToken'];
