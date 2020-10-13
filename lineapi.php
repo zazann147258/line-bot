@@ -27,32 +27,39 @@ foreach ($request_array['events'] as $event)
 	
 	$data = ['replyToken' => $event['replyToken'], 'messages' => [['type' => 'text', 'text' => $reply_message]]];
 	
-	//$send_result = replyMessage($post_header, $data);
-	$send_result = send_reply_message($post_header, $data);	
+	$post_body = json_encode($data);
+	
+	//$send_result = replyMessage('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);
+	$send_result = send_reply_message('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);	
 }
 
-function replyMessage($post_header, $data)
+
+
+
+
+function replyMessage($url, $post_header, $post_body)
 {
         $context = stream_context_create([
             'http' => [
                 //'ignore_errors' => true,
                 'method' => 'POST',
                 'header' => $post_header,
-                'content' => json_encode($data),
+                'content' => $post_body,
             ],
         ]);
 	
-	$result = file_get_contents('https://api.line.me/v2/bot/message/reply', false, $context);
+	$result = file_get_contents($url, false, $context);
 
 	return $result;
 }
 
-function send_reply_message($post_header, $data)
+
+
+
+
+function send_reply_message($url, $post_header, $post_body, $post_header, $post_body)
 {
-	$post_body = json_encode($data);
-	
-	$ch = curl_init('https://api.line.me/v2/bot/message/reply');
-	
+	$ch = curl_init($url);	
 	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $post_header);
