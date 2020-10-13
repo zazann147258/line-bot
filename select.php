@@ -9,14 +9,12 @@ $result_json = json_decode($result, true);
 //var_dump($result_json);
 
 foreach($result_json as $key => $values) {
-  var_dump($values);
+  //var_dump($values); echo "<br>";
+  foreach($values as $key => $value) {
+      var_dump($value); 
+  }
   echo "<br>";
   //echo $key . " => " . $value . "<br>";
 }
-
-//foreach($result_json->id as $data)
-//{
-//    echo $data.'<br>';
-//}
 
 ?>
