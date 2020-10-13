@@ -4,9 +4,9 @@ $channelAccessToken = 'PZ6qlbYABvcIg+sly4KFcjs8rAVOW1+EEEDBgcOn86a9MwA+MNHV8//FP
 
 $request = file_get_contents('php://input');   // Get request content
 
-$request_array = json_decode($request, true);   // Decode JSON request
+$request_json = json_decode($request, true);   // Decode JSON request
 
-foreach ($request_array['events'] as $event)
+foreach ($request_json['events'] as $event)
 {
 	if ($event['type'] == 'message') 
 	{
@@ -14,16 +14,7 @@ foreach ($request_array['events'] as $event)
 		{
 			$text = $event['message']['text'];
 			
-			$reply_message = 'ระบบได้รับ '. $text.' ของคุณแล้ว!';   
-			
-			$post_header = array('Content-Type: application/json', 'Authorization: Bearer ' . $channelAccessToken);
-			
-			$data = ['replyToken' => $event['replyToken'], 'messages' => [['type' => 'text', 'text' => $reply_message]]];
-			
-			$post_body = json_encode($data);
-			
-			$send_result = replyMessage('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);
-			//$send_result = send_reply_message('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);
+			$reply_message = 'ระบบได้รับข้อความ '. $text.' ของคุณแล้ว!';   
 			
 		} else {
 			$reply_message = 'ระบบได้รับ '.$event['message']['type'].' ของคุณแล้ว!';
@@ -31,17 +22,19 @@ foreach ($request_array['events'] as $event)
 	} else {
 		$reply_message = 'ระบบได้รับ Event '.$event['type'].' ของคุณแล้ว!';
 	}
+	
+	// reply message
+	$post_header = array('Content-Type: application/json', 'Authorization: Bearer ' . $channelAccessToken);
+	$data = ['replyToken' => $event['replyToken'], 'messages' => [['type' => 'text', 'text' => $reply_message]]];
+	$post_body = json_encode($data);
+	$send_result = replyMessage('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);
+	//$send_result = send_reply_message('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);
 }
-
-
-
-
 
 function replyMessage($url, $post_header, $post_body)
 {
         $context = stream_context_create([
             'http' => [
-                //'ignore_errors' => true,
                 'method' => 'POST',
                 'header' => $post_header,
                 'content' => $post_body,
@@ -52,10 +45,6 @@ function replyMessage($url, $post_header, $post_body)
 
 	return $result;
 }
-
-
-
-
 
 function send_reply_message($url, $post_header, $post_body)
 {
