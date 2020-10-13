@@ -20,6 +20,6 @@ foreach($result_json as $key => $values) {
   //echo "<br>";  
 }
 
-echo $data;
+var_dump($data);
 
 ?>
