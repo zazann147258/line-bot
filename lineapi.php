@@ -1,79 +1,9 @@
 <?php
-
-$LINE_API = 'https://api.line.me/v2/bot/message/reply';
-$ACCESS_TOKEN = 'PZ6qlbYABvcIg+sly4KFcjs8rAVOW1+EEEDBgcOn86a9MwA+MNHV8//FPERaqcVuWnKEs4U+6oe0jLA++fQlGKdK9/SCRKlZ0x4otRbscQZBRbe5VDkXvu32iZAA+dpXEwrb47Ncr9kuH1vSp+t3LwdB04t89/1O/w1cDnyilFU='; // Access Token ค่าที่เราสร้างขึ้น
-$POST_HEADER = array('Content-Type: application/json', 'Authorization: Bearer ' . $ACCESS_TOKEN);
-
-$protocol = (isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.0');
-
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {	
-	$code = 405;
-	$text = 'Accept "POST" Method requests';
-	header($protocol . ' ' . $code . ' ' . $text);
-	exit();
-}
-
-if($_SERVER['CONTENT_TYPE'] != 'application/json'){
-	$code = 444;
-	$text = 'Accept "JSON" request';
-	header($protocol . ' ' . $code . ' ' . $text);
-        exit();
-}
-
-$request = file_get_contents('php://input'); // Input JSON request
-
-if (strlen($request) === 0) {
-	$code = 400;
-	$text = 'Missing "JSON" request body';
-	header($protocol . ' ' . $code . ' ' . $text);
-	exit();
-}
-
-$request_json = json_decode($request, true);   // Decode JSON request
-
-//echo '$request_json: ' . $request_json;
-
-//foreach ($request_json['events'] as $event)
-//{
-	//$reply_token = $event['replyToken'];
-	//$reply_message = '';
-	
-	//switch ($event['type']) {
-	//	case 'message':
-	//		$message = $event['message'];
-	//		switch ($message['type']) {
-	//			case 'text':
-					$reply_message = 'hello';
-	//		
-	//				break;
-	//			default: error_log('Unsupported message type: ' . $message['type']);
-	//				break;
-	//		}
-	//		break;
-	//	default:
-	//		error_log('Unsupported event type: ' . $event['type']);
-	//		break;
-	//}
-	
-	//if(strlen($reply_message) > 0 ) {
-//		$data = ['replyToken' => $event['replyToken'], 'messages' => [['type' => 'text', 'text' => $reply_message]]];
-		      //['replyToken' => $event['replyToken'], 'messages' => [['type' => 'text', 'text' => $message['text']]]]
-		
-//		$post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
-//		$send_result = send_reply_message($LINE_API, $POST_HEADER, $post_body);
-		
-	//}
-	
-	//$send_result = replyMessage(['replyToken' => $event['replyToken'],'messages' => [['type' => 'text', 'text' => $message['text']]]);
-//}
-
-
-
 $API_URL = 'https://api.line.me/v2/bot/message/reply';
-$ACCESS_TOKEN = 'PZ6qlbYABvcIg+sly4KFcjs8rAVOW1+EEEDBgcOn86a9MwA+MNHV8//FPERaqcVuWnKEs4U+6oe0jLA++fQlGKdK9/SCRKlZ0x4otRbscQZBRbe5VDkXvu32iZAA+dpXEwrb47Ncr9kuH1vSp+t3LwdB04t89/1O/w1cDnyilFU='; // Access Token ค่าที่เราสร้างขึ้น
+$ACCESS_TOKEN = '85Ve118k5nIckQt7WU7TABbHNMvXGsiOfBE2iXk4ffVUwdJpqkGEt7hXI2Prw3QCKkDSJxH4eK+c6eKoUQARkhi8wvjekDKmA0yRzqoiiiehBWyOduoU9DrWnIeHqt75zPCCHudXXx0Etona7yNscQdB04t89/1O/w1cDnyilFU='; // Access Token ค่าที่เราสร้างขึ้น
 $POST_HEADER = array('Content-Type: application/json', 'Authorization: Bearer ' . $ACCESS_TOKEN);
 
-
+$request = file_get_contents('php://input');   // Get request content
 $request_array = json_decode($request, true);   // Decode JSON to Array
 
 if ( sizeof($request_array['events']) > 0 )
@@ -89,8 +19,68 @@ if ( sizeof($request_array['events']) > 0 )
    
    if( $event['message']['type'] == 'text' )
    {
-	   $text = $event['message']['text'];
-	   $reply_message = '('.$text.') ได้รับข้อความเรียบร้อย!!';   
+		$text = $event['message']['text'];
+		
+	   	if($text == "ชื่อ" || $text == "ชื่ออะไร" || $text == "ชื่ออะไรครับ"|| $text == "ชื่ออะไรคะ"){
+			$reply_message = 'ชื่อของฉันคือ BOTCAT';
+		}
+	   
+	   	if($text == "สถานการณ์โควิดวันนี้" || $text == "covid19" || $text == "covid-19" || $text == "Covid-19"){
+		   $url = 'https://covid19.th-stat.com/api/open/today';
+		   $ch = curl_init($url);
+		   curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+		   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		   curl_setopt($ch, CURLOPT_HTTPHEADER, $post_header);
+		   curl_setopt($ch, CURLOPT_POSTFIELDS, $post_body);
+		   curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		   $result = curl_exec($ch);
+		   curl_close($ch);   
+		   
+		   $obj = json_decode($result);
+		   
+		   //$reply_message = $result;
+		   $reply_message = 'ติดเชื้อสะสมโว้ยยย!!! '. $obj->{'Confirmed'} .' คน รักษาหายแล้ว '.$obj->{'Recovered'} . ' คน';
+	
+	        }	
+	   
+	   if($text =="@บอท ขอรหัสนิสิตของผู้พัฒนา ส่งไปที่ https://linebot.kantit.com/stuid.php"){
+	    	  $url = 'https://linebot.kantit.com/stuid.php';
+		   $ch = curl_init($url);
+		   curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+		   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		   curl_setopt($ch, CURLOPT_HTTPHEADER, $post_header);
+		   curl_setopt($ch, CURLOPT_POSTFIELDS, $post_body);
+		   curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		   $result = curl_exec($ch);
+		   curl_close($ch);   		   
+		   $obj = json_decode($result);		   
+		   $reply_message = $result;
+		   //$reply_message = 'ผลการบันทึกข้อมูล'. $obj->{'status'} .' และ '.$obj->{'data'} . ' OK!';
+	   }
+	   
+	   if($text =="@บอท ขอรายชื่อนิสิตที่ส่งงาน LineBoT"){
+	    	   $url = 'https://linebot.kantit.com/list.php';
+		   
+		   $reply_message = file_get_contents($url);   // Get request content
+		   
+		   //$request_array = json_decode($request, true);   // Decode JSON to Array
+		   
+		   //$result = file_get_contents($url);		   
+		   //$obj = json_decode($result);
+		   //$reply_message = 'มีส่งงาน '. $obj->{'Confirmed'} .' คน ได้แก่...';
+		   //$reply_message = 'ติดเชื้อสะสม '. $obj->{'Confirmed'} .' คน รักษาหายแล้ว '.$obj->{'Recovered'} . ' คน';
+		   $reply_message = "โปรดรอสักครู่....";
+	   }
+	   
+	     if($text =="@บอท ขอที่อยู่มทร.หน่อยจิ"){
+	    	   $url = 'https://www.google.com/maps/place/Phra+Nakhon+Si+Ayutthaya/@14.3935691,100.237786,10z/data=!3m1!4b1!4m8!1m2!2m1!1smaps+google!3m4!1s0x30e2736f5bfd8f7f:0x1019237450c4860!8m2!3d14.3532128!4d100.5689599';
+		   
+		   $reply_message = $url;   // Get request content
+
+		   //$reply_message = $reply_message;
+	   }
+	   
+		//$reply_message = '('.$text.') ได้รับข้อความเรียบร้อย!!';   
    }
    else
     $reply_message = 'ระบบได้รับ '.ucfirst($event['message']['type']).' ของคุณแล้ว';
@@ -114,6 +104,8 @@ if ( sizeof($request_array['events']) > 0 )
  }
 }
 
+echo "OK";
+
 function send_reply_message($url, $post_header, $post_body)
 {
  $ch = curl_init($url);
@@ -127,5 +119,6 @@ function send_reply_message($url, $post_header, $post_body)
 
  return $result;
 }
-				     
+
+?>			     
 ?>
