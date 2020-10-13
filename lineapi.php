@@ -34,16 +34,15 @@ $request_array = json_decode($request, true);   // Decode JSON to Array
    ];
    $post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
 	  
-$POST_HEADER = array('Content-Type: application/json', 'Authorization: Bearer ' . $ACCESS_TOKEN);
-
-   $send_result = send_reply_message($POST_HEADER, $post_body);
+   $send_result = send_reply_message($ACCESS_TOKEN, $post_body);
 	  
    echo "Result: ".$send_result."\r\n";
   }
  }
 
-function send_reply_message($post_header, $post_body)
+function send_reply_message($channelAccessToken, $post_body)
 {
+	$post_header = array('Content-Type: application/json', 'Authorization: Bearer ' . $channelAccessToken);
  $ch = curl_init('https://api.line.me/v2/bot/message/reply');
  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
