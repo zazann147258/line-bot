@@ -54,17 +54,17 @@ foreach ($request_json['events'] as $event)
 	}
 	
 	if(strlen($reply_message) > 0 ) {
-		$data = ['replyToken' => $reply_token, 'messages' => [['type' => 'text', 'text' => $reply_message]]];
+		//$data = ['replyToken' => $reply_token, 'messages' => [['type' => 'text', 'text' => $reply_message]]];
 		      //['replyToken' => $event['replyToken'],'messages' => [['type' => 'text', 'text' => $message['text']]]]
 		
-		$post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
+		//$post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
 		//$send_result = send_reply_message($API_URL, $POST_HEADER, $post_body);
-		$send_result = replyMessage($post_body);
+		$send_result = replyMessage(['replyToken' => $event['replyToken'],'messages' => [['type' => 'text', 'text' => $message['text']]]);
 	}
 	
 }
 
-function replyMessage($post_body)
+function replyMessage($message)
 {
 	$header = array(
             'Content-Type: application/json',
