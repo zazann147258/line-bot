@@ -23,6 +23,12 @@ foreach ($request_json['events'] as $event)
 		$reply_message = 'ระบบได้รับ Event '.$event['type'].' ของคุณแล้ว!';
 	}
 	
+	
+	
+	$reply_message = mySQL_select('http://bot.kantit.com/select_users.php');
+	
+	
+	
 	$post_header = array('Content-Type: application/json', 'Authorization: Bearer ' . $channelAccessToken);
 	
 	$data = ['replyToken' => $event['replyToken'], 'messages' => [['type' => 'text', 'text' => $reply_message]]];
@@ -31,7 +37,7 @@ foreach ($request_json['events'] as $event)
 	
 	//mySQL('http://bot.kantit.com/insert_json.php');
 	
-	$mysql_result =  mySQL('http://bot.kantit.com/insert_json.php');
+	//$mysql_result =  mySQL('http://bot.kantit.com/insert_json.php');
 	
 	//if($callback){
 	
@@ -41,7 +47,25 @@ foreach ($request_json['events'] as $event)
 	
 	//}
 }
-
+function mySQL_select($url)
+{
+	$result = file_get_contents($url);
+	
+	$result_json = json_decode($result, true); //var_dump($result_json);
+	
+	$data = array();
+	
+	foreach($result_json as $values) {
+		
+		$data = $values["user_stuid"];
+  
+  //var_dump($values); echo "<br>";
+  
+  //echo $values["user_stuid"] . " " . $values["user_firstname"] . " " . $values["user_lastname"] . "<br>";
+	}
+	
+	return "oooooooooooooooooookkkkkk!!!";
+}
 
 function mySQL($url)
 {
