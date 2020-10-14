@@ -1,6 +1,6 @@
 <?php
 
-$url = 'http://bot.kantit.com/select.php';  
+$url = 'http://bot.kantit.com/select_users.php';  
 
 $result = file_get_contents($url);
 
@@ -14,7 +14,7 @@ foreach($result_json as $values) {
   
   //var_dump($values); echo "<br>";
   
-  echo $values["msg_from"] . "<br>";
+  echo $values["user_stuid"] . "<br>";
     
   //foreach($values as $key => $value) {
   //  var_dump($value['msg_id']); 
