@@ -52,15 +52,15 @@ function mySQL_select($url)
 	
 	$result_json = json_decode($result, true); //var_dump($result_json);
 	
-	$data = array();
-	
+	$data = '';
+		
 	foreach($result_json as $values) {
 		
 		//echo $values["user_stuid"] . " " . $values["user_firstname"] . " " . $values["user_lastname"] . "<br>";
 		
 		//$data = $values["user_firstname"];
 		
-		array_push($data, array("user_stuid"=>$values["user_stuid"], "user_firstname"=> $values["user_firstname"], "user_lastname"=>$values["user_lastname"]));
+		$data .= $values["user_stuid"] . " " . $values["user_firstname"] . " " . $values["user_lastname"] . "<br>";
 	}
 	
 	return $data;
