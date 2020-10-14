@@ -17,36 +17,30 @@ foreach ($request_json['events'] as $event)
 			$reply_message = 'ฉันได้รับข้อความ "'. $text . '" ของคุณแล้ว!';
 			
 			if($text == "@บอท ขอรายชื่อนิสิตทั้งหมด"){
-				$reply_message = mySQL_select('http://bot.kantit.com/select_users.php');
+				$reply_message = mySQL_selectAll('http://bot.kantit.com/select_users.php');
 			}
 			
 		} else {
 			$reply_message = 'ฉันได้รับ ' . $event['message']['type'] . ' ของคุณแล้ว!';
 		}
+		
 	} else {
 		$reply_message = 'ฉันได้รับ Event ' . $event['type'] . ' ของคุณแล้ว!';
 	}
 		
+	// reply message
 	$post_header = array('Content-Type: application/json', 'Authorization: Bearer ' . $channelAccessToken);
 	
 	$data = ['replyToken' => $event['replyToken'], 'messages' => [['type' => 'text', 'text' => $reply_message]]];
 	
 	$post_body = json_encode($data);
 	
-	//mySQL('http://bot.kantit.com/insert_json.php');
-	
-	//$mysql_result =  mySQL('http://bot.kantit.com/insert_json.php');
-	
-	//if($callback){
-	
-	// reply message	
 	$send_result = replyMessage('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);
 	//$send_result = send_reply_message('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);
 	
-	//}
 }
 
-function mySQL_select($url)
+function mySQL_selectAll($url)
 {
 	$result = file_get_contents($url);
 	
@@ -55,37 +49,11 @@ function mySQL_select($url)
 	$data = '';
 		
 	foreach($result_json as $values) {
-		
-		//echo $values["user_stuid"] . " " . $values["user_firstname"] . " " . $values["user_lastname"] . "<br>";
-		
-		//$data = $values["user_firstname"];
-		
-		$data .= $values["user_stuid"] . " " . $values["user_firstname"] . " " . $values["user_lastname"] . "\r\n";
+		$data .= $values["user_stuid"] . ' ' . $values["user_firstname"] . ' ' . $values["user_lastname"] . '\r\n';
 	}
 	
 	return $data;
 }
-
-function mySQL($url)
-{
-	$post_header = array('Content-Type: application/json');
-	$data = ['replyToken' => 'xxxx', 'messages' => 'xxxxxx'];
-	$post_body = json_encode($data);
-	 $context = stream_context_create([
-            'http' => [
-                'method' => 'POST',
-                'header' => $post_header,
-                'content' => $post_body,
-            ],
-        ]);
-	
-	//$result = file_get_contents($url, false, $context);
-	
-	$result = file_get_contents($url, false, null);
-	
-	return $result;
-}
-
 
 function replyMessage($url, $post_header, $post_body)
 {
