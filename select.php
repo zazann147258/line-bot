@@ -4,9 +4,7 @@ $url = 'http://bot.kantit.com/select_users.php';
 
 $result = file_get_contents($url);
 
-$result_json = json_decode($result, true);
-
-//var_dump($result_json);
+$result_json = json_decode($result, true); //var_dump($result_json);
 
 //$data = array();
 
@@ -14,16 +12,8 @@ foreach($result_json as $values) {
   
   //var_dump($values); echo "<br>";
   
-  echo $values["user_stuid"] . "<br>";
-    
-  //foreach($values as $key => $value) {
-  //  var_dump($value['msg_id']); 
-    //echo $key . " => " . $value . "<br>";
-    //array_push($data, array("fullname"=>$value['msg_from']));
-  //}
-  //echo "<br>";  
+  echo $values["user_stuid"] . " " . $values["user_firstname"] . " " . $values["user_lastname"] . "<br>";
+  
 }
-
-//var_dump($data);
 
 ?>
