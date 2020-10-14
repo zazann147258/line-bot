@@ -45,6 +45,7 @@ foreach ($request_json['events'] as $event)
 	
 	//}
 }
+
 function mySQL_select($url)
 {
 	$result = file_get_contents($url);
@@ -55,11 +56,11 @@ function mySQL_select($url)
 	
 	foreach($result_json as $values) {
 		
-		$data = $values["user_stuid"];
-  
-  //var_dump($values); echo "<br>";
-  
-  //echo $values["user_stuid"] . " " . $values["user_firstname"] . " " . $values["user_lastname"] . "<br>";
+		//echo $values["user_stuid"] . " " . $values["user_firstname"] . " " . $values["user_lastname"] . "<br>";
+		
+		//$data = $values["user_firstname"];
+		
+		array_push($data, $values["user_firstname"]);
 	}
 	
 	return $data;
