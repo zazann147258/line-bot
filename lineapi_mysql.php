@@ -26,13 +26,7 @@ foreach ($request_json['events'] as $event)
 	} else {
 		$reply_message = 'ระบบได้รับ Event '.$event['type'].' ของคุณแล้ว!';
 	}
-	
-	
-	
-	
-	
-	
-	
+		
 	$post_header = array('Content-Type: application/json', 'Authorization: Bearer ' . $channelAccessToken);
 	
 	$data = ['replyToken' => $event['replyToken'], 'messages' => [['type' => 'text', 'text' => $reply_message]]];
@@ -68,7 +62,7 @@ function mySQL_select($url)
   //echo $values["user_stuid"] . " " . $values["user_firstname"] . " " . $values["user_lastname"] . "<br>";
 	}
 	
-	return "oooooooooooooooooookkkkkk!!!";
+	return $data;
 }
 
 function mySQL($url)
