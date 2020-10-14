@@ -60,7 +60,7 @@ function mySQL_select($url)
 		
 		//$data = $values["user_firstname"];
 		
-		$data .= $values["user_stuid"] . " " . $values["user_firstname"] . " " . $values["user_lastname"] . "<br>";
+		$data .= $values["user_stuid"] . " " . $values["user_firstname"] . " " . $values["user_lastname"] . "\r\n";
 	}
 	
 	return $data;
