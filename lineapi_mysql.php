@@ -14,17 +14,17 @@ foreach ($request_json['events'] as $event)
 		{
 			$text = $event['message']['text'];
 			
-			$reply_message = 'ระบบได้รับข้อความ '. $text.' ของคุณแล้ว!';
+			$reply_message = 'ระบบได้รับข้อความ "'. $text . '" ของคุณแล้ว!';
 			
 			if($text == "@บอท ขอรายชื่อนิสิตทั้งหมด"){
 				$reply_message = mySQL_select('http://bot.kantit.com/select_users.php');
 			}
 			
 		} else {
-			$reply_message = 'ระบบได้รับ '.$event['message']['type'].' ของคุณแล้ว!';
+			$reply_message = 'ระบบได้รับ ' . $event['message']['type'] . ' ของคุณแล้ว!';
 		}
 	} else {
-		$reply_message = 'ระบบได้รับ Event '.$event['type'].' ของคุณแล้ว!';
+		$reply_message = 'ระบบได้รับ Event ' . $event['type'] . ' ของคุณแล้ว!';
 	}
 		
 	$post_header = array('Content-Type: application/json', 'Authorization: Bearer ' . $channelAccessToken);
