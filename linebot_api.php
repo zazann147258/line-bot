@@ -17,7 +17,7 @@ foreach ($request_json['events'] as $event)
 			$reply_message = 'ฉันได้รับข้อความ "'. $text . '" ของคุณแล้ว!';
 			
 			if($text == "@บอท ขอรายชื่อนิสิตทั้งหมด"){
-				$reply_message = mySQL_selectAll('http://bot.kantit.com/select_users.php');
+				$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
 			}
 			
 		} else {
@@ -27,17 +27,15 @@ foreach ($request_json['events'] as $event)
 	} else {
 		$reply_message = 'ฉันได้รับ Event ' . $event['type'] . ' ของคุณแล้ว!';
 	}
+	
+	if($reply_message != null || $reply_message != ""){ $reply_message =  'ฉันไม่สามารถตอบกลับข้อรับข้อความ "'. $text . '" ของคุณ!'; }
 		
 	// reply message
-	$post_header = array('Content-Type: application/json', 'Authorization: Bearer ' . $channelAccessToken);
-	
-	$data = ['replyToken' => $event['replyToken'], 'messages' => [['type' => 'text', 'text' => $reply_message]]];
-	
-	$post_body = json_encode($data);
-	
+	$post_header = array('Content-Type: application/json', 'Authorization: Bearer ' . $channelAccessToken);	
+	$data = ['replyToken' => $event['replyToken'], 'messages' => [['type' => 'text', 'text' => $reply_message]]];	
+	$post_body = json_encode($data);	
 	//$send_result = replyMessage('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);
-	$send_result = send_reply_message('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);
-	
+	$send_result = send_reply_message('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);	
 }
 
 function mySQL_selectAll($url)
