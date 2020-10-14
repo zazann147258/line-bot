@@ -60,7 +60,7 @@ function mySQL_select($url)
 		
 		//$data = $values["user_firstname"];
 		
-		array_push($data, $values["user_firstname"]);
+		array_push($data, array("user_stuid"=>$values["user_stuid"], "user_firstname"=> $values["user_firstname"], "user_lastname"=>$values["user_lastname"]));
 	}
 	
 	return $data;
