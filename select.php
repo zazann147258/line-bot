@@ -14,7 +14,7 @@ foreach($result_json as $values) {
   
   //var_dump($values); echo "<br>";
   
-  echo $values['msg_from'];
+  echo $values["msg_from"] . "<br>";
     
   //foreach($values as $key => $value) {
   //  var_dump($value['msg_id']); 
