@@ -1,4 +1,4 @@
-<?php
+h<?php
 
 $url = 'http://bot.kantit.com/select_users.php';  
 
@@ -12,6 +12,6 @@ $data = "";
 		$data .= $values["user_stuid"] . " " . $values["user_firstname"] . " " . $values["user_lastname"] . "\r\n";
 	}
 
-var_dump($data);
+echo $data;
 
 ?>
