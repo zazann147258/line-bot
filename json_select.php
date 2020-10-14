@@ -1,4 +1,4 @@
-h<?php
+<?php
 
 $url = 'http://bot.kantit.com/select_users.php';  
 
