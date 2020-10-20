@@ -57,13 +57,11 @@ function mySQL_selectAll($url)
 	
 	$result_json = json_decode($result, true); //var_dump($result_json);
 	
-	$data = "";
+	$data = "ผลลัพธ์:\r\n";
 		
 	foreach($result_json as $values) {
 		$data .= $values["user_stuid"] . " " . $values["user_firstname"] . " " . $values["user_lastname"] . "\r\n";
 	}
-	
-	if($data == ""){$data = "ไม่มีผลลัพธ์"}
 	
 	return $data;
 }
