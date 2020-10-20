@@ -26,8 +26,8 @@ foreach ($request_json['events'] as $event)
 					$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
 				}
 			
-				if($txts[1] == "ขอรหัส FTP ของ s61160060"){
-					$reply_message = 'NOOOOOOOOOOOOOOOOOOOOOOOOOOOO!!';
+				if($txts[1]." ".$txts[2]." ".$txts[3] == "ขอรหัส FTP ของ"){
+					$reply_message = 's61160060';
 				}
 				
 			}
