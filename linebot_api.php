@@ -20,7 +20,7 @@ foreach ($request_json['events'] as $event)
 			
 			if($txts[0] == "@บอท"){
 				
-				$reply_message = 'okkkkkkkkkkkkkkkkkk!!';
+				$reply_message = 'กรุณาใช้รูปแบบคำสั่งที่ถูกต้องงงงง!!';
 				
 				if($txts[1] == "ขอรายชื่อนิสิตทั้งหมด"){
 					$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
