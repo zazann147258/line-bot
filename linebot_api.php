@@ -63,6 +63,8 @@ function mySQL_selectAll($url)
 		$data .= $values["user_stuid"] . " " . $values["user_firstname"] . " " . $values["user_lastname"] . "\r\n";
 	}
 	
+	if($data == ""){$data = "ไม่มีผลลัพธ์"}
+	
 	return $data;
 }
 
