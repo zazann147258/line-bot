@@ -16,8 +16,18 @@ foreach ($request_json['events'] as $event)
 			
 			$reply_message = 'ฉันได้รับข้อความ "'. $text . '" ของคุณแล้ว!';
 			
-			if($text == "@บอท ขอรายชื่อนิสิตทั้งหมด"){
-				$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
+			$txts = explode(" ", $text);
+			
+			if($txts[0] == "@บอท"){
+				$reply_message = 'okkkkkkkkkkkkkkkkkk!!';
+			}
+			
+			if($txts == "@บอท ขอรายชื่อนิสิตทั้งหมด"){
+				//$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
+			}
+			
+			if($text == "@บอท ฉันขอรหัส FTP ของ s61160060"){
+				//$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
 			}
 			
 		} else {
