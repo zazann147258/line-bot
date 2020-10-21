@@ -33,7 +33,8 @@ foreach ($request_json['events'] as $event)
 				}
 			
 				if($txts[1]." ".$txts[2] == "ขอรายชื่อนิสิต รหัส"){
-					$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php?sid='.$txts[3]);					
+					//$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php?sid='.$txts[3]);	
+					$reply_message = $txts[3];
 				}
 				
 				if($txts[1]." ".$txts[2]." ".$txts[3] == "ขอรหัส FTP ของ"){
