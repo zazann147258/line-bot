@@ -81,7 +81,7 @@ function mySQL_selectFTP($url)
 		$data .= $values["user_password"] . "\r\n";
 	}
 	
-	return $data;
+	return "รหัส FTP ของคุณคือ ".$data;
 }
 
 
