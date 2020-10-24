@@ -18,7 +18,7 @@ foreach ($request_json['events'] as $event)
 			
 			$txts = explode(" ", $text);
 			
-			if($txts[1] == "@bot ไล่มงคลออก !!"){
+			if($text == "@bot ไล่มงคลออก !!"){
 					$reply_message = "ไม่สามารถดำเนินการได้ในขณะนี้";
 				}
 			
