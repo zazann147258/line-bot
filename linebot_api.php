@@ -18,6 +18,10 @@ foreach ($request_json['events'] as $event)
 			
 			$txts = explode(" ", $text);
 			
+			if($txts[1] == "@bot ไล่มงคลออก !!"){
+					$reply_message = "ไม่สามารถดำเนินการได้ในขณะนี้";
+				}
+			
 			if($txts[0] == "@บอท"){
 				
 				$reply_message = "กรุณาใช้รูปแบบคำสั่งที่ถูกต้องงงงง!!\n";
@@ -28,9 +32,7 @@ foreach ($request_json['events'] as $event)
 				$reply_message .= "พิมพ์ว่า \"@บอท ขอรายชื่อนิสิต รหัส 61160xxx\"\n";
 				$reply_message .= "พิมพ์ว่า \"@บอท ขอรหัส FTP ของ s61160xxx\"\r\n";
 				
-				if($txts[1] == "@bot ไล่มงคลออก !!"){
-					$reply_message = "ไม่สามารถดำเนินการได้ในขณะนี้";
-				}
+				
 				
 				if($txts[1] == "ขอรายชื่อนิสิตทั้งหมด"){
 					$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
