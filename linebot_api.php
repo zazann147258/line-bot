@@ -31,7 +31,7 @@ foreach ($request_json['events'] as $event)
 		   $obj = json_decode($result);
 		   
 		   $reply_message = $result;
-		   $reply_message = 'ติดเชื้อสะสม '. $obj->{'Confirmed'};
+		   $reply_message = 'จำนวนผู้เสียชีวิต'. $obj->{'Deaths'}.' คน.';
 	   }
 			if($text == "@บอท สวัสดี"){
 					$reply_message = "สวัสดีจ๊ะ++ ยินดีให้บริการ";
