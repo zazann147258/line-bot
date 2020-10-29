@@ -32,36 +32,14 @@ foreach ($request_json['events'] as $event)
 				
 				if($txts[1] == "ขอรายชื่อนิสิตทั้งหมด"){
 					$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
-				} else 
+				}
 			
 				if($txts[1]." ".$txts[2] == "ขอรายชื่อนิสิต รหัส"){
 					$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php?sid='.$txts[3]);
-				} else
-				
+				}
 				if($txts[1]." ".$txts[2]." ".$txts[3] == "ขอรหัส FTP ของ"){
 					$reply_message = mySQL_selectFTP('http://bot.kantit.com/json_select_ftp.php?sid='.$txts[4]);					
-				}else{
-					
-					$txts = explode(" ", $text);
-			  if($text == "สถานการณ์โควิดวันนี้" || $text == "covid19" || $text == "covid-19" || $text == "Covid-19"){
-		   $url = 'https://covid19.th-stat.com/api/open/today';
-		   $ch = curl_init($url);
-		   curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-		   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		   curl_setopt($ch, CURLOPT_HTTPHEADER, $post_header);
-		   curl_setopt($ch, CURLOPT_POSTFIELDS, $post_body);
-		   curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-		   $result = curl_exec($ch);
-		   curl_close($ch);   
-		   
-		   $obj = json_decode($result);
-		   
-		   $reply_message = $result;
-		   $reply_message = 'จำนวนผู้เสียชีวิต'. $obj->{'Deaths'}.' คน.';
-	   }
-				
-				}
-				
+				}				
 			}
 			
 		} else {
